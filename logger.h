@@ -5,6 +5,8 @@ typedef int boolean;
 #define true 1
 #define false 0
 
+// configuration descriptions;
+
 typedef struct _userInfo
 {
     char *username;
@@ -21,8 +23,9 @@ typedef struct _platformInfo
 
 typedef struct _config
 {
-    struct UserInfo *userInfo;
-    struct PlatformInfo *platformInfo;
+    UserInfo userInfo;
+    PlatformInfo platformInfo;
 } LogConfig;
 
-int load_config(char *path, LogConfig *config);
+int config_load(const char *path, LogConfig *config);
+void config_unload(const LogConfig *config);

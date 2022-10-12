@@ -5,7 +5,7 @@ This is a repo for codes to login the NCU campus network. The codes are written 
 ## Usage
 
 ```shell
-ncu-srun -c config.json
+ncu-srun config.json
 ```
 
 `config.json` be like:
