@@ -5,7 +5,8 @@
 
 #include <curl/curl.h>
 
-#include "logger.h"
+#include "include/ncu_srun_universal.h"
+#include "include/config.h"
 
 int main(int argc, char **argv)
 {
@@ -18,7 +19,7 @@ int main(int argc, char **argv)
     LogConfig *cfg = (LogConfig *)malloc(sizeof(LogConfig));
     if (config_load(argv[1], cfg) == 0)
     {
-        printf("YEaaaa!");
+        
     }
     else
         printf("Invalid JSON config, exit.");

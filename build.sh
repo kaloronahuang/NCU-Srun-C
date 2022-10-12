@@ -1,1 +1,1 @@
-g++ logger.c main.c -o ncu-login -lcjson -g
+g++ src/logger.c src/main.c -o ncu-login -lcjson -g

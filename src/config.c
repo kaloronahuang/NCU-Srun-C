@@ -1,5 +1,6 @@
-// logger.c
-#include "logger.h"
+// config.c
+#include "include/ncu_srun_universal.h"
+#include "include/config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
