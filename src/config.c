@@ -11,8 +11,9 @@
 char *util_copy_string(char *src)
 {
     size_t len = strlen(src);
-    char *ret = (char *)malloc(len);
+    char *ret = (char *)malloc(len + 1ull);
     memcpy(ret, src, len);
+    ret[len] = '\0';
     return ret;
 }
 
