@@ -4,6 +4,7 @@
 
 #include <openssl/hmac.h>
 #include <openssl/evp.h>
+#include <openssl/sha.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -52,15 +53,44 @@ char *encryption_base64(char *src)
 
 char *encryption_md5(const char *password, const char *token)
 {
-    unsigned int md_len = 0;
-    unsigned char *resbox = (unsigned char *)malloc(160 + 1);
-    resbox[16] = 0;
-    unsigned char *result = HMAC(EVP_md5(), token, strlen(token), (const unsigned char *)password, strlen(password), resbox, &md_len);
+    // MD5 is 128-bit;
+    const size_t ret_len = 32;
+    char *ret = (char *)malloc(ret_len + 1);
+    ret[ret_len] = '\0';
 
-    size_t len = md_len * 2LL;
-    char *ret = (char *)malloc(len + 1);
-    ret[len] = '\0';
-    for (unsigned int i = 0; i < md_len; i++)
+    unsigned char *result = HMAC(EVP_md5(), token, strlen(token), (const unsigned char *)password, strlen(password), NULL, NULL);
+
+    for (unsigned int i = 0; i < 16; i++)
         ret[2LL * i + 1] = encryption_hex_alphabet[result[i] & 15], ret[2LL * i] = encryption_hex_alphabet[result[i] >> 4];
     return ret;
+}
+
+char *encryption_sha1(const char *content)
+{
+    // SHA1 is 160-bit;
+    const size_t ret_len = 40;
+    char *ret = (char *)malloc(ret_len + 1);
+    ret[ret_len] = '\0';
+
+    unsigned char *result = SHA1((const unsigned char *)content, strlen(content), NULL);
+
+    for (unsigned int i = 0; i < 20; i++)
+        ret[2LL * i + 1] = encryption_hex_alphabet[result[i] & 15], ret[2LL * i] = encryption_hex_alphabet[result[i] >> 4];
+    return ret;
+}
+
+char *encryption_sencode(const char *msg, boolean key)
+{
+
+}
+
+char *encryption_xencode(const char *msg, const char *key)
+{
+    char *ret = NULL;
+    if (strlen(msg) == 0)
+    {
+        ret = (char *)malloc(1), ret[0] = '\0';
+        return ret;
+    }
+    char *pwd = encryption_sencode(msg, true);
 }

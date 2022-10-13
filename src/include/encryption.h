@@ -6,3 +6,4 @@ extern const char *encryption_hex_alphabet;
 
 char *encryption_base64(char *src);
 char *encryption_md5(const char *password, const char *token);
+char *encryption_sha1(const char *content);
